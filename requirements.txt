@@ -1,0 +1,6 @@
+django
+djangorestframework
+djangorestframework_simplejwt
+httpie
+djongo
+sqlparse==0.2.4
