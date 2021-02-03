@@ -9,7 +9,7 @@ from django.dispatch import receiver
 
 # Create your models here.
 class Task(models.Model):
-    todo = models.CharField(max_length=20)
+    todo = models.CharField(max_length=20, default=None)
     description = models.CharField(max_length=50)
 
     def __str__(self):
@@ -22,7 +22,7 @@ class Developer(models.Model):
         ('QA', 'Quality Assurance'),
         ('SD', 'Software Developer'),
     )
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, default=None)
     email = models.CharField(max_length=30, null=True)
     task = models.ManyToManyField('Task', null=True)
     position = models.CharField(max_length=20, choices=POSITIONS, null=True, default=POSITIONS[2][0])

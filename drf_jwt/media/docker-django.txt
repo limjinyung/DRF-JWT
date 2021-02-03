@@ -1,0 +1,15 @@
+1. At root directory create "Dockerfile"
+
+2. Inside Dockerfile
+FROM python:3
+ENV PYTHONBUFFERED=1
+WORKDIR /<project folder>
+COPY requirements.txt /<project folder>/
+RUN pip install -r requirements.txt
+COPY . /<project folder>/
+EXPOSE 8000
+CMD ["python","<project folder>/manage.py","runserver","0.0.0.0:8000"]
+
+3. Goto CMD
+- docker build -t <tag_name> .
+- docker run -it -p 8000:8000 <image id>

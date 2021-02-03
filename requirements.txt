@@ -4,3 +4,4 @@ djangorestframework_simplejwt
 httpie
 djongo
 sqlparse==0.2.4
+django-cors-headers==3.7.0
