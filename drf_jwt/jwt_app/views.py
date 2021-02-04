@@ -31,7 +31,7 @@ class HelloView(APIView):
 def task_list(request):
     all_task=Task.objects.all()
     serializer=TaskSerialzer(all_task, many=True)
-    return JsonResponse({'all task' :serializer.data}, safe=False, status=status.HTTP_200_OK)
+    return JsonResponse({'all_task' :serializer.data}, safe=False, status=status.HTTP_200_OK)
     # return JsonResponse(serializer.data, safe=False)
 
 
@@ -222,12 +222,38 @@ def delete_developer(request, developer_id):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def file_download(request):
-    if request.method == 'POST' and request.FILES['file']:
-        myfile = request.FILES['file']
-        fs = FileSystemStorage()
-        filename = fs.save(myfile.name, myfile)
-        uploaded_file_url = fs.url(filename)
-        print(uploaded_file_url)
+def image_upload(request):
+
+    if request.method == 'POST' and request.FILES['image']:
+        myfile = request.FILES['image']
+    else:
+        return JsonResponse({'error': 'Something went wrong'}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    try:
+        task = Task.objects.get(todo=request.POST['todo'])
+        task.image_attachment=myfile
+        task.save()
         return HttpResponse(status=status.HTTP_204_NO_CONTENT)
-    return HttpResponse(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    except ObjectDoesNotExist:
+        return JsonResponse({'error': 'Task does not exist'}, safe=False, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def document_upload(request):
+
+    if request.method == 'POST' and request.FILES['document']:
+        myfile = request.FILES['document']
+    else:
+        return JsonResponse({'error': 'Something went wrong'}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    try:
+        task = Task.objects.get(todo=request.POST['todo'])
+        task.document_attachment = myfile
+        task.save()
+        return HttpResponse(status=status.HTTP_204_NO_CONTENT)
+    except ObjectDoesNotExist:
+        return JsonResponse({'error': 'Task does not exist'}, safe=False, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, safe=False, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

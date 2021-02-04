@@ -11,6 +11,8 @@ from django.dispatch import receiver
 class Task(models.Model):
     todo = models.CharField(max_length=20, default=None)
     description = models.CharField(max_length=50)
+    image_attachment = models.ImageField(upload_to='images/', null=True)
+    document_attachment = models.FileField(upload_to='documents/', null=True)
 
     def __str__(self):
         return '%s %s' % (self.todo, self.description)

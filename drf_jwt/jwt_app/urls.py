@@ -1,7 +1,7 @@
 from django.urls import path, re_path
 from .views import create_task, get_task, task_list, update_task, delete_task
 from .views import get_developer, developer_list, create_developer, update_developer, delete_developer
-from .views import file_download
+from .views import image_upload, document_upload
 
 urlpatterns = [
     # path(r'hello/', HelloView.as_view(), name='hello'),
@@ -15,5 +15,6 @@ urlpatterns = [
     path('create_developer/', create_developer),
     path('update_developer/<int:developer_id>', update_developer),
     path('delete_developer/<int:developer_id>', delete_developer),
-    re_path('file_download/', file_download)
+    re_path('image_upload/', image_upload),
+    re_path('document_upload/', document_upload),
 ]

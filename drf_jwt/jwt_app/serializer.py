@@ -4,7 +4,7 @@ from .models import Task, Developer
 class TaskSerialzer(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = ('todo', 'description')
+        fields = ('todo', 'description', 'image_attachment', 'document_attachment')
 
 
 class DeveloperSerialzer(serializers.ModelSerializer):
