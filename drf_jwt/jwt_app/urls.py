@@ -1,10 +1,15 @@
 from django.urls import path, re_path
+from .views import get_csrf, login_view, logout_view, session_view
 from .views import create_task, get_task, task_list, update_task, delete_task
 from .views import get_developer, developer_list, create_developer, update_developer, delete_developer
 from .views import image_upload, document_upload
 
 urlpatterns = [
     # path(r'hello/', HelloView.as_view(), name='hello'),
+    path('csrf/', get_csrf, name='api-csrf'),
+    path('login/', login_view, name='api-login'),
+    path('logout/', logout_view, name='api-logout'),
+    path('session/', session_view, name='api-session'),
     path('task_list/', task_list),
     path('get_task/', get_task),
     path('create_task/', create_task),
